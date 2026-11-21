@@ -11,6 +11,36 @@
         ExtendClientAreaToDecorationsHint="True"
         TransparencyLevelHint="AcrylicBlur">
 
+    <Window.Styles>
+        
+        <!-- SIDEBAR STYLING -->
+        <Style Selector="ListBox.sidebar">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Padding" Value="8,0" />
+        </Style>
+
+        <Style Selector="ListBox.sidebar ListBoxItem" x:DataType="vm:SidebarEntry">
+            <Setter Property="Padding" Value="10,6" />
+            <Setter Property="Margin" Value="0,1" />
+            <Setter Property="MinHeight" Value="0" />
+            <Setter Property="CornerRadius" Value="8" />
+            <Setter Property="IsEnabled" Value="{Binding isSelectable}" />
+        </Style>
+
+        <Style Selector="ListBox.sidebar ListBoxItem:selected /template/ ContentPresenter">
+            <Setter Property="Background" Value="{StaticResource AccentBrush}" />
+        </Style>
+
+        <Style Selector="ListBox.sidebar ListBoxItem:pointerover /template/ ContentPresenter">
+            <Setter Property="Background" Value="{StaticResource AccentBrush}" />
+        </Style>
+
+        <Style Selector="ListBox.siderbar ListBoxItem:disabled /template/ ContentPresenter">
+            <Setter Property="Background" Value="Transparent" />
+        </Style>
+
+    </Window.Styles>
+
     <SplitView  IsPaneOpen="{Binding IsSidebarOpen}"
                 DisplayMode="Inline"
                 OpenPaneLength="240"
@@ -19,7 +49,8 @@
         <SplitView.Pane>
 
             <!-- TEMPORARY -->
-            <ListBox    ItemsSource="{Binding SidebarEntries}"
+            <ListBox    Classes="sidebar"
+                        ItemsSource="{Binding SidebarEntries}"
                         SelectedItem="{Binding SelectedEntry}">
                 
                 <ListBox.DataTemplates>
@@ -42,14 +73,10 @@
 
         </SplitView.Pane>
 
-        <Grid>
+        <Grid RowDefinitions="52,*" Background="{StaticResource ContentBrush}">
 
-            <!-- GRID COLUMN SIZING -->
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-
-            <TextBlock Grid.Column="0" Background="Blue" />
+            <TextBlock Grid.Row="0" Background="Blue" />
+            <TextBlock Grid.Row="1" Background="Red" />
 
         </Grid>
 
