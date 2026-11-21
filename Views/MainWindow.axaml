@@ -80,6 +80,57 @@
 
             <Grid x:Name="Toolbar" ColumnDefinitions="Auto,*,Auto,Auto,Auto" Background="Black" />
 
+            <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Disabled">
+                <ItemsControl ItemsSource="{Binding Cards}" Margin="16,4,16,16">
+
+                    <!-- ItemsPanel Placement controlled by WrapPanel-->
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel ItemWidth="220" ItemHeight="220" HorizontalAlignment="Center" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+
+                    <!-- ItemsPanel visuals -->
+                    <ItemsControl.DataTemplates>
+
+                        <DataTemplate DataType="vm:NewCharacterCard">
+                            <Button Classes="tile" Command="{Binding $parent[ItemsControl].((vm:MainViewModel)DataContext).CreateCharacterCommand}">
+                                <Grid>
+                                    <Rectangle  Stroke="{StaticResource MutedTextBrush}" StrokeThickness="2"
+                                                StrokeDashArray="4,3" RadiusX="12" RadiusY="12" />
+
+                                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="10">
+                                        <PathIcon Width="28" Height="28" Data="M12,4 V20 M4,12 H20" HorizontalAlignment="Center" />
+                                        <TextBlock Text="New Character" Classes="muted" FontSize="13" />
+                                    </StackPanel>
+                                </Grid>
+                            </Button>
+                        </DataTemplate>
+
+                        <DataTemplate DataType="vm:CharacterCard">
+                            <Button Classes="tile"
+                                    Command="{Binding $parent[ItemsControl].((vm:MainViewModel)DataContext).OpenCharacterCommand}"
+                                    CommandParameter="{Binding}">
+                                <Border Classes="card">
+                                    <Grid RowDefinitions="*,Auto">
+                                        <TextBlock  Text="{Binding Initial}" FontSize="64" FontWeight="Bold" Opacity="0.25"
+                                                    HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                        
+                                        <StackPanel Grid.Row="1">
+                                            <TextBlock  Text="{Binding Name}" FontWeight="SemiBold" FontSize="15"
+                                                        TextTrimming="CharacterEllipsis" />
+                                            
+                                            <TextBlock  Text="{Binding Summary}" Classes="muted" TextTrimming="CharacterEllipsis" />
+                                        </StackPanel>
+                                    </Grid>
+                                </Border>
+                            </Button>
+                        </DataTemplate>
+
+                    </ItemsControl.DataTemplates>
+                </ItemsControl>
+            </ScrollViewer>
+
         </Grid>
 
     </SplitView>
