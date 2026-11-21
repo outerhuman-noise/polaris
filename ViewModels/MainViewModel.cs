@@ -59,7 +59,7 @@ public partial class MainViewModel : ViewModelBase
             new SidebarItem("Characters", Icons.Tray, 2),
             new SidebarItem("Items", Icons.Star, 103),
             new SidebarItem("Magic", Icons.Note, 83),
-            new SidebarHeader("Source Material"),
+            new SidebarHeader("Compendium"),
             new SidebarItem("Sources", Icons.Trash, 3),
             new SidebarItem("Homebrew", Icons.Image, 1)
         ];

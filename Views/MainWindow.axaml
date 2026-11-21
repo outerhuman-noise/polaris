@@ -39,6 +39,39 @@
             <Setter Property="Background" Value="Transparent" />
         </Style>
 
+        <!-- BUTTON STYLING -->
+         <Style Selector="Button.tile">
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="Margin" Value="0,0,16,16" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="CornerRadius" Value="12" />
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="VerticalAlignment" Value="Stretch" />
+            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+            <Setter Property="VerticalContentAlignment" Value="Stretch" />
+         </Style>
+
+         <Style Selector="Button.tile:pointerover /template/ ContentPresenter, Button.tile:pressed /template/ ContentPresenter">
+            <Setter Property="Background" Value="Transparent" />
+        </Style>
+
+        <Style Selector="Button.tile:pointerover Border.card">
+            <Setter Property="BorderBrush" Value="{StaticResource AccentBrush}" />
+        </Style>
+
+        <Style Selector="Button.tile:pointerover Rectangle.newOutline">
+            <Setter Property="Stroke" Value="{StaticResource AccentBrush}" />
+            <Setter Property="Fill" Value="#142F7CF6" />
+        </Style>
+        
+        <Style Selector="Button.tile:pointerover TextBlock.muted">
+            <Setter Property="Foreground" Value="{StaticResource AccentBrush}" />
+        </Style>
+
+        <Style Selector="Button.tile:pointerover PathIcon.newIcon">
+            <Setter Property="Foreground" Value="{StaticResource AccentBrush}" />
+        </Style>
+
     </Window.Styles>
 
     <SplitView  IsPaneOpen="{Binding IsSidebarOpen}"
@@ -76,7 +109,6 @@
         <Grid RowDefinitions="52,*" Background="{StaticResource ContentBrush}">
 
             <TextBlock Grid.Row="0" Background="Blue" />
-            <TextBlock Grid.Row="1" Background="Red" />
 
             <Grid x:Name="Toolbar" ColumnDefinitions="Auto,*,Auto,Auto,Auto" Background="Black" />
 
@@ -96,11 +128,13 @@
                         <DataTemplate DataType="vm:NewCharacterCard">
                             <Button Classes="tile" Command="{Binding $parent[ItemsControl].((vm:MainViewModel)DataContext).CreateCharacterCommand}">
                                 <Grid>
-                                    <Rectangle  Stroke="{StaticResource MutedTextBrush}" StrokeThickness="2"
+                                    <Rectangle  Classes="newOutline"
+                                                Stroke="{StaticResource MutedTextBrush}" StrokeThickness="2"
                                                 StrokeDashArray="4,3" RadiusX="12" RadiusY="12" />
 
                                     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="10">
-                                        <PathIcon Width="28" Height="28" Data="M12,4 V20 M4,12 H20" HorizontalAlignment="Center" />
+                                        <PathIcon   Classes="newIcon" Width="28" Height="28" HorizontalAlignment="Center"
+                                                    Data="M11,4 H13 V11 H20 V13 H13 V20 H11 V13 H4 V11 H11 Z" />
                                         <TextBlock Text="New Character" Classes="muted" FontSize="13" />
                                     </StackPanel>
                                 </Grid>
