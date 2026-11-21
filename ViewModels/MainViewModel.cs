@@ -3,6 +3,8 @@ using System.Collections.ObjectModel;
 using Avalonia.Controls;
 using Avalonia.Media;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using Polaris.Models;
 
 namespace Polaris.ViewModels;
 
@@ -28,10 +30,16 @@ public sealed class SidebarItem(string label, Geometry icon, int count) : Sideba
 
 // ----------------- CARDS -----------------
 
-public abstract class CardBase
+public abstract class CardBase {}
+
+public sealed class NewCharacterCard : CardBase {}
+
+public sealed class CharacterCard(Character character) : CardBase
 {
-    public bool IsStarred { get; init; }
-    public string[] Tags { get; init; } = [];
+    public Character Character { get; } = character;
+    public string Name => Character.Name;
+    public string Initial => string.IsNullOrEmpty(Name) ? "?" : Name[..1];
+    public string Summary => Character.Summary;
 }
 
 public partial class MainViewModel : ViewModelBase
@@ -41,7 +49,7 @@ public partial class MainViewModel : ViewModelBase
     [ObservableProperty] private string _SearchText = "";
 
     public ObservableCollection<SidebarEntry> SidebarEntries {get;}
-    public ObservableCollection<CardBase> Cards { get; }
+    public ObservableCollection<CardBase> Cards { get; } = [ new NewCharacterCard()];
 
     public MainViewModel()
     {
@@ -57,8 +65,18 @@ public partial class MainViewModel : ViewModelBase
         ];
         SelectedEntry = SidebarEntries[1];
 
-        Cards = [];
+        Cards.Add(new CharacterCard(new Character { Name = "Vivek", Race = "Human", Level = 1, Class = "Warlock"}));
+        Cards.Add(new CharacterCard(new Character { Name = "Dylan", Race = "Drow", Level = 1, Class = "Ranger"}));
     }
+
+    [RelayCommand]
+    private void CreateCharacter()
+    {
+        Cards.Insert(1, new CharacterCard(new Character()));
+    }
+
+    [RelayCommand]
+    private void OpenCharacter(CharacterCard card) {}
 }
 
 public static class Icons
