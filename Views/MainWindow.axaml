@@ -11,14 +11,18 @@
         ExtendClientAreaToDecorationsHint="True"
         TransparencyLevelHint="AcrylicBlur">
 
-    <SplitView DisplayMode="Inline"
-               OpenPaneLength="240"
-               PaneBackground="{StaticResource SidebarBrush}"> <!-- Refer to Application.Resources -->
+    <SplitView  IsPaneOpen="True"
+                DisplayMode="Inline"
+                OpenPaneLength="240"
+                PaneBackground="{StaticResource SidebarBrush}"> <!-- Refer to Application.Resources -->
 
         <SplitView.Pane>
 
             <!-- TEMPORARY -->
-            <Border Background="black" />
+            <ListBox    ItemsSource="{Binding SidebarEntries}"
+                        SelectedItem="{Binding SelectedEntry}">
+
+            </ListBox>
 
         </SplitView.Pane>
 
@@ -26,12 +30,10 @@
 
             <!-- GRID COLUMN SIZING -->
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="200" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
             <TextBlock Grid.Column="0" Background="Blue" />
-            <TextBlock Grid.Column="1" Background="Red" />
 
         </Grid>
 
